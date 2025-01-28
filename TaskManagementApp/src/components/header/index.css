@@ -1,0 +1,20 @@
+.layout-header {
+  border-bottom: 1px solid #ccc;
+}
+
+.layout-header ul {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  padding: 20px 0;
+}
+
+.layout-header ul a {
+  text-decoration: none;
+  color: black;
+}
+
+.layout-header ul a:hover {
+  color: #05675f;
+  text-decoration: underline;
+}

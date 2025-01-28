@@ -1,0 +1,249 @@
+.home-container {
+  padding: 20px;
+  margin: 0 auto;
+  max-width: 1200px;
+  border-radius: 10px;
+  background-color: aqua;
+}
+
+.tasks-menu {
+  padding: 20px;
+  margin: 0 auto;
+  border-radius: 10px;
+  background-color: #f2f1f1;
+  border-radius: 10px 10px 0 0;
+  border-bottom: 1px solid #05675f;
+}
+
+.task-lists {
+  /* background-color: red; */
+  padding: 10px;
+}
+
+/* code for tasks list */
+.tasks-container {
+  background-color: #f2f1f1;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.task-buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.task-list-header {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  background-color: #05675f;
+  color: white;
+  width: 150px;
+  margin-top: 20px;
+  margin-left: 20px;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.task-list-header i {
+  padding-right: 10px;
+}
+
+.task-list-title {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* for task title up down icon fontawesome */
+.hidden {
+  display: none;
+}
+
+.done-button {
+  background-color: #05675f;
+  color: white;
+  padding: 10px;
+  border: none;
+  font-size: 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  width: 100px;
+}
+
+.done-button:hover {
+  color: black;
+  background-color: white;
+}
+
+.task-list-add-button span {
+  margin-left: 15px;
+  font-weight: bold;
+}
+
+/* AddNewTask css */
+.add-Task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.add-Task-header button {
+  background-color: #ee0853;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  width: 90px;
+  font-size: 16px;
+  padding: 4px;
+  height: 25px;
+}
+.add-container {
+  background-color: #f2f1f1;
+  padding: 3vmax;
+  border-radius: 10px;
+}
+
+.add-container > form {
+  display: flex;
+  flex-direction: column;
+}
+
+.add-container > form input,
+textarea,
+select,
+button {
+  padding: 20px;
+  border: 1px solid rgb(0, 0, 0, 0.214);
+  border-radius: 5px;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.form-priority {
+  margin-bottom: 10px;
+}
+
+.form-priority input,
+.form-priority select {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  /* box-sizing: border-box; */
+}
+
+.form-buttons {
+  display: flex;
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.form-buttons button {
+  background-color: #05675f;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  width: 100%;
+  font-size: 16px;
+  padding: 5px;
+  height: 35px;
+  cursor: pointer;
+}
+
+.form-buttons button:hover {
+  background-color: #fff;
+  color: black;
+  border: 1px solid black;
+}
+
+/* Task css */
+
+button {
+  border: none;
+  cursor: pointer;
+  background-color: rgb(37, 37, 37);
+  color: white;
+}
+
+/* Responsive Design */
+@media (min-width: 640px) {
+  .form-buttons {
+    justify-content: space-between;
+    flex-direction: row;
+  }
+
+  .form-buttons button {
+    width: 125px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* .container {
+    width: 70%;
+    padding: 5px;
+  } */
+
+  .task-list-header {
+    padding-left: 10px;
+    width: 150px;
+    text-align: center;
+  }
+
+  .task-list-add-button {
+    width: auto;
+  }
+
+  .task {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .task-titles {
+    font-size: 14px;
+  }
+
+  .task-btn {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+@media (max-width: 480px) {
+  .task-list-title {
+    font-size: 16px;
+  }
+
+  .task-title {
+    font-size: 14px;
+  }
+
+  .due-date {
+    font-size: 12px;
+  }
+
+  .title-priority {
+    font-size: 14px;
+  }
+
+  .task-description > p {
+    font-size: 14px;
+  }
+
+  .add-Task-header button {
+    width: 60px;
+  }
+
+  .done-button {
+    background-color: #05675f;
+    color: white;
+    padding: 6px;
+    border: none;
+    font-size: 13px;
+    border-radius: 30px;
+    cursor: pointer;
+    width: 60px;
+  }
+}

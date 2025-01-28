@@ -1,0 +1,14 @@
+.profile-container {
+  width: 100%;
+  max-width: 480px;
+}
+
+.profile-container > .item {
+  margin-bottom: 20px;
+}
+
+@media (min-width: 640px) {
+  .profile-container button {
+    max-width: 200px;
+  }
+}
