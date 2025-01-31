@@ -10,7 +10,9 @@ This project uses mock data from jsonexamples.com to manage tasks and user profi
 - Search Functionality: Users can search tasks by title.
 - Responsive Design: The app is designed to work on both desktop and mobile screens.
 ## Technologies Used
-Frontend: ReactJS, React Router, Tailwind CSS State Management: React Hooks (useState, useEffect) Data Source: Mock data from jsonexamples.com
+- Frontend: ReactJS, React Router, Tailwind CSS 
+- State Management: React Hooks (useState, useEffect)
+- Data Source: Mock data from jsonexamples.com
 
 
 ## Folder Structure
