@@ -1,140 +1,192 @@
-import { useRef, useState } from "react";
-import "./index.css";
+import axios from "axios";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
-const TaskActionsMenu = ({
-  show,
+export const AddNewTask = ({
+  setTasks,
   setShow,
-  tasks,
-  isSearch,
-  setIsSearch,
-  setResult,
-  filters,
-  setFilters,
+  editingTask,
+  setEditingTask,
+  isSubmitting,
+  setIsSubmitting,
 }) => {
-  const searchRef = useRef(null);
-  const [searchInput, setSearchInput] = useState("");
+  const [title, setTitle] = useState(editingTask ? editingTask.todo : "");
+  const [description, setDescription] = useState(
+    editingTask ? editingTask.description : ""
+  );
+  const [dueDate, setDueDate] = useState(
+    editingTask ? editingTask.dueDate : ""
+  );
+  const [priority, setPriority] = useState(
+    editingTask ? editingTask.priority : "Medium"
+  );
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    if (searchInput === "") return;
-    setIsSearch(true);
-    // to reset filters
-    setFilters({ activeBar: "all" });
-    // Here we filter the tasks based on the search input
-    // 1- We convert the search input and the task title and description to lowercase
-    // 2- We filter the tasks based on the search input
-    // 3- We update the result state with the filtered tasks
-    setResult(
-      tasks.filter((task) =>
-        task.title.toLowerCase().includes(searchInput.toLowerCase())
-      )
-    );
-  };
+  const navigate = useNavigate();
 
-  const cancelSearch = (e) => {
-    e.preventDefault();
-    setIsSearch(false);
-    setResult([]);
-    setSearchInput("");
-    searchRef.current.value = "";
-  };
-
-  const handleDueDateFilter = (filter) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    
-    let filteredTasks = [...tasks];
-    
-    switch (filter) {
-      case "today":
-        filteredTasks = tasks.filter(task => {
-          const taskDate = new Date(task.dueDate);
-          taskDate.setHours(0, 0, 0, 0);
-          return taskDate.getTime() === today.getTime();
-        });
-        break;
-      case "week":
-        const nextWeek = new Date(today);
-        nextWeek.setDate(today.getDate() + 7);
-        filteredTasks = tasks.filter(task => {
-          const taskDate = new Date(task.dueDate);
-          return taskDate >= today && taskDate <= nextWeek;
-        });
-        break;
-      case "month":
-        const nextMonth = new Date(today);
-        nextMonth.setMonth(today.getMonth() + 1);
-        filteredTasks = tasks.filter(task => {
-          const taskDate = new Date(task.dueDate);
-          return taskDate >= today && taskDate <= nextMonth;
-        });
-        break;
-      default:
-        filteredTasks = tasks;
+  useEffect(() => {
+    if (editingTask) {
+      setTitle(editingTask.todo);
+      setDescription(editingTask.description || "");
+      setDueDate(editingTask.dueDate || "");
+      setPriority(editingTask.priority || "Medium");
+    } else {
+      setTitle("");
+      setDescription("");
+      setDueDate("");
+      setPriority("Medium");
     }
-    
-    setResult(filteredTasks);
-    setIsSearch(true);
+  }, [editingTask]);
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (editingTask) {
+      UpdateTask();
+      setEditingTask(null);
+    } else {
+      AddTask();
+    }
   };
+
+  const clearField = () => {
+    setTitle("");
+    setDescription("");
+    setDueDate("");
+    setPriority("Medium");
+  };
+
+  async function AddTask() {
+    setIsSubmitting(true);
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+
+    try {
+      const response = await axios.post("https://dummyjson.com/todos/add", {
+        todo: title,
+        description,
+        completed: false,
+        userId: user.id,
+        dueDate,
+        priority,
+      });
+
+      toast.success("Task added successfully");
+      setTasks((prev) => [...prev, response.data]);
+      clearField();
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+
+    setShow(false);
+    setIsSubmitting(false);
+  }
+
+  async function UpdateTask() {
+    setIsSubmitting(true);
+    try {
+      await axios.put(`https://dummyjson.com/todos/${editingTask.id}`, {
+        todo: title,
+        description,
+        dueDate,
+        priority,
+        completed: editingTask.completed,
+      });
+
+      toast.success("Task updated successfully");
+
+      // التحديث الصحيح للمهام في الواجهة
+      setTasks((prev) =>
+        prev.map((existingTask) =>
+          existingTask.id === editingTask.id
+            ? {
+                ...existingTask,
+                todo: title,
+                description,
+                dueDate,
+                priority,
+              }
+            : existingTask
+        )
+      );
+
+      clearField();
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+
+    setShow(false);
+    setIsSubmitting(false);
+  }
 
   return (
-    <div className="tasks-menu">
-      <div className="tasks-menu-header">
-        <div className="search-bar">
-          <input
-            ref={searchRef}
-            type="text"
-            className="task-search-input"
-            placeholder="Search tasks..."
-            onChange={(e) => {
-              setIsSearch(false);
-              setSearchInput(e.target.value);
-            }}
-          />
+    <div className="add-container">
+      <div className="add-Task-header">
+        <h2>{editingTask ? "Edit Task" : "Add New Task"}</h2>
+        <button type="button" onClick={clearField}>
+          Clear
+        </button>
+      </div>
+      <form onSubmit={submitHandler}>
+        <input
+          type="text"
+          placeholder="Task Title"
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+          required
+          style={{ marginBottom: 10 }}
+        />
+
+        <textarea
+          placeholder="Task Description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
+          required
+          style={{ marginBottom: 10, height: "80px" }}
+        />
+
+        <input
+          type="date"
+          placeholder="Due Date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          required
+          style={{ marginBottom: 10 }}
+        />
+
+        <select
+          id="priority"
+          value={priority}
+          onChange={(e) => setPriority(e.target.value)}
+          required
+          style={{ marginBottom: 20 }}
+        >
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+
+        <div className="form-buttons">
+          <button disabled={isSubmitting} type="submit">
+            {isSubmitting ? (
+              <i className="fa-solid fa-circle-notch" />
+            ) : editingTask ? (
+              "Update Task"
+            ) : (
+              "Add Task"
+            )}
+          </button>
           <button
-            onClick={(e) => (!isSearch ? handleSearch(e) : cancelSearch(e))}
+            disabled={isSubmitting}
+            type="button"
+            onClick={() => setShow(false)}
           >
-            {isSearch ? "cancel" : "search"}
+            Cancel
           </button>
         </div>
-        <button className="task-list-add-button" onClick={() => setShow(!show)}>
-          <div className="add-button">+</div>
-          <span>Add New Task</span>
-        </button>
-      </div>
-      {/* Tasks buttons All high medium low done */}
-      <div className="task-buttons-row">
-        <button onClick={() => setFilters({ ...filters, activeBar: "all" })}>
-          All Tasks
-        </button>
-
-        <button
-          onClick={() => setFilters({ ...filters, activeBar: "uncompleted" })}
-        >
-          Pending
-        </button>
-
-        <button onClick={() => setFilters({ ...filters, activeBar: "done" })}>
-          Completed
-        </button>
-      </div>
-      {/* Due date filters */}
-      <div className="task-buttons-row">
-        <button onClick={() => handleDueDateFilter("all")}>
-          All Dates
-        </button>
-        <button onClick={() => handleDueDateFilter("today")}>
-          Due Today
-        </button>
-        <button onClick={() => handleDueDateFilter("week")}>
-          Due This Week
-        </button>
-        <button onClick={() => handleDueDateFilter("month")}>
-          Due This Month
-        </button>
-      </div>
+      </form>
     </div>
   );
 };
-
-export default TaskActionsMenu;
