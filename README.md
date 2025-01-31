@@ -3,6 +3,14 @@
 The Task Management Application is a simple ReactJS application that allows users to create, read, update, and delete tasks. The application features user authentication, task filtering and sorting, search functionality, user profile management, and a responsive design. Additionally, optional features such as task prioritization and task descreption and due date are included for better functionality.
 
 This project uses mock data from jsonexamples.com to manage tasks and user profiles.
+## Features
+User Authentication: Simulated user registration and login using mock data from jsonexamples.com.
+Task Management: Users can create, update, delete, and mark tasks as completed.
+Task Filtering & Sorting: Filter tasks based on due date and status.
+Search Functionality: Users can search tasks by title.
+Responsive Design: The app is designed to work on both desktop and mobile screens.
+Technologies Used
+Frontend: ReactJS, React Router, Tailwind CSS State Management: React Hooks (useState, useEffect) Data Source: Mock data from jsonexamples.com
 
 
 ## Folder Structure
@@ -32,7 +40,7 @@ Task-List-ReactJs-master/
 └── ...
 ```
 
-## The updates I made
+## The last updates I made
 
 1. Restructured the project files to improve organization and maintainability.
 2. Added `react-router-dom` for handling routing within the application.
@@ -45,8 +53,9 @@ Task-List-ReactJs-master/
 4. Added Features:
    1. Search Functionality
    2. Responsive Design
-5. replace localStorage for storing tasks with mock data from jsonexamples.com by calling different endpoints
-6. I added react-toastify for displaying notifications
+   3. Task Filtering & Sorting: Filter tasks based on due date (e.g., “All Dates”, “Due Today”, “Overdue”, “Upcoming”, “Next Week”) and status (completed, pending).
+4. replace localStorage for storing tasks with mock data from jsonexamples.com by calling different endpoints
+5. I added react-toastify for displaying notifications
 
 ## Understand src/routes.jsx
 
