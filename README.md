@@ -4,12 +4,12 @@ The Task Management Application is a simple ReactJS application that allows user
 
 This project uses mock data from jsonexamples.com to manage tasks and user profiles.
 ## Features
-User Authentication: Simulated user registration and login using mock data from jsonexamples.com.
-Task Management: Users can create, update, delete, and mark tasks as completed.
-Task Filtering & Sorting: Filter tasks based on due date and status.
-Search Functionality: Users can search tasks by title.
-Responsive Design: The app is designed to work on both desktop and mobile screens.
-Technologies Used
+- User Authentication: Simulated user registration and login using mock data from jsonexamples.com.
+- Task Management: Users can create, update, delete, and mark tasks as completed.
+- Task Filtering & Sorting: Filter tasks based on due date and status.
+- Search Functionality: Users can search tasks by title.
+- Responsive Design: The app is designed to work on both desktop and mobile screens.
+## Technologies Used
 Frontend: ReactJS, React Router, Tailwind CSS State Management: React Hooks (useState, useEffect) Data Source: Mock data from jsonexamples.com
 
 
