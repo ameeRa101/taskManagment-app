@@ -1,3 +1,10 @@
+ Task Management Application
+## Project Overview
+The Task Management Application is a simple ReactJS application that allows users to create, read, update, and delete tasks. The application features user authentication, task filtering and sorting, search functionality, user profile management, and a responsive design. Additionally, optional features such as task prioritization and task descreption and due date are included for better functionality.
+
+This project uses mock data from jsonexamples.com to manage tasks and user profiles.
+
+
 ## Folder Structure
 
 ```
