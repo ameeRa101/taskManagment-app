@@ -27,12 +27,6 @@
   border-radius: 10px;
 }
 
-.task-buttons-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
 .task-list-header {
   display: flex;
   align-items: center;
@@ -57,22 +51,6 @@
 /* for task title up down icon fontawesome */
 .hidden {
   display: none;
-}
-
-.done-button {
-  background-color: #05675f;
-  color: white;
-  padding: 10px;
-  border: none;
-  font-size: 15px;
-  border-radius: 30px;
-  cursor: pointer;
-  width: 100px;
-}
-
-.done-button:hover {
-  color: black;
-  background-color: white;
 }
 
 .task-list-add-button span {
@@ -233,17 +211,6 @@ button {
   }
 
   .add-Task-header button {
-    width: 60px;
-  }
-
-  .done-button {
-    background-color: #05675f;
-    color: white;
-    padding: 6px;
-    border: none;
-    font-size: 13px;
-    border-radius: 30px;
-    cursor: pointer;
     width: 60px;
   }
 }

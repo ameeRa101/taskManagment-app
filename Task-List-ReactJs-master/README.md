@@ -38,6 +38,8 @@ Task-List-ReactJs-master/
 4. Added Features:
    1. Search Functionality
    2. Responsive Design
+5. replace localStorage for storing tasks with mock data from jsonexamples.com by calling different endpoints
+6. I added react-toastify for displaying notifications
 
 ## Understand src/routes.jsx
 
@@ -62,14 +64,9 @@ Task-List-ReactJs-master/
 - AuthGuard component
 
 - This component acts as a guard for routes that require authentication.
-- It checks if the user is authenticated using the `useAuth` hook.
+- It checks if the user is authenticated by check is there a "user" item in localStorage
 - If the user is not authenticated, it redirects them to the login page.
 - If the user is authenticated, it renders the child components.
-
-- In my case I check if the route has a state {isAuthenticated: true} is passed when navigate to that route, we use either:
-  - `navigate("/", { state: { isAuthenticated: true } });` which is function returned from useNavigate from react-router-dom.
-  - Link component from react-router dom, example: `<Link to="/profile" state={{ isAuthenticated: true }}>...`
-- if we didn't passed `state: { isAuthenticated: true }` the guard will redirect us to /login
 
 ## Best Practice
 

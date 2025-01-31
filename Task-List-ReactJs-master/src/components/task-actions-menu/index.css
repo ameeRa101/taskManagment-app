@@ -67,6 +67,32 @@
   align-items: center;
 }
 
+.task-buttons-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.task-buttons-row > button {
+  padding: 10px;
+  font-size: 15px;
+  border-radius: 30px;
+  cursor: pointer;
+  flex-grow: 0;
+}
+
+.task-buttons-row > button {
+  background-color: #05675f;
+  color: white;
+  border: none;
+}
+
+.task-buttons-row > button:hover {
+  color: black;
+  background-color: white;
+}
+
 @media (min-width: 640px) {
   .tasks-menu-header {
     justify-content: space-between;

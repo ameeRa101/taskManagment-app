@@ -2,30 +2,14 @@ import React, { useState } from "react";
 import "./index.css";
 
 const Task = ({
-  title,
-  description,
-  datetime,
-  priority,
+  task,
   deleteTask,
-  index,
   editTask,
   markAsDone,
   isDone,
+  isSubmitting,
 }) => {
   const [isDescriptionVisible, setIsDescriptionVisible] = useState(false);
-
-  const getPriorityClass = (priority) => {
-    switch (priority) {
-      case "High":
-        return "priority-high";
-      case "Medium":
-        return "priority-medium";
-      case "Low":
-        return "priority-low";
-      default:
-        return "";
-    }
-  };
 
   const handleToggleDescription = () => {
     setIsDescriptionVisible(!isDescriptionVisible);
@@ -46,30 +30,34 @@ const Task = ({
                 isDescriptionVisible ? "" : "hidden"
               }`}
             ></i>
-            <span style={{ marginLeft: 10 }}>{title}</span>
+            <span style={{ marginLeft: 10 }}>{task.todo}</span>
           </p>
-          <p className="due-date">Due Date: {datetime}</p>
         </div>
-        <p className={`title-priority ${getPriorityClass(priority)}`}>
-          {priority}
-        </p>
       </div>
       {isDescriptionVisible && (
         <>
-          <div className="task-description">
-            <h4>Description:</h4>
-            <p>{description}</p>
-          </div>
           {/* I add isDone because I pass it false in done-task-list */}
           {!isDone && (
             <div className="task-btn">
-              <button className="edit-btn" onClick={() => editTask(index)}>
+              <button
+                disabled={isSubmitting}
+                className="edit-btn"
+                onClick={() => editTask(task)}
+              >
                 Edit
               </button>
-              <button className="done-btn" onClick={() => markAsDone(index)}>
+              <button
+                disabled={isSubmitting}
+                className="done-btn"
+                onClick={() => markAsDone(task)}
+              >
                 Mark as done
               </button>
-              <button className="delete-btn" onClick={() => deleteTask(index)}>
+              <button
+                disabled={isSubmitting}
+                className="delete-btn"
+                onClick={() => deleteTask(task)}
+              >
                 Delete
               </button>
             </div>

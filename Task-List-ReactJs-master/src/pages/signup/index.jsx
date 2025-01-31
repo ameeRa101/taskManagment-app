@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./signup.css";
 import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const Signup = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,8 @@ const Signup = () => {
     confirmPassword: "",
   });
   const navigate = useNavigate();
+  // this is for disabling buttons while sending an api request to prevent sending multiple requests
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -19,10 +23,28 @@ const Signup = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // add validation
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
 
-    navigate("/login");
+    try {
+      setIsSubmitting(true);
+      await axios.post("https://dummyjson.com/users/add", {
+        fullName: formData.fullName,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      toast.success("User created successfully");
+      navigate("/login");
+    } catch (error) {
+      toast.error("Something went wrong");
+    }
+    setIsSubmitting(false);
   };
 
   return (
@@ -73,7 +95,13 @@ const Signup = () => {
             required
           />
         </div>
-        <button type="submit">Sign Up</button>
+        <button disabled={isSubmitting} type="submit">
+          {isSubmitting ? (
+            <i className="fa-solid fa-circle-notch" />
+          ) : (
+            "Sign Up"
+          )}
+        </button>
         <Link to="/login">Already have an account? Login</Link>
       </form>
     </div>

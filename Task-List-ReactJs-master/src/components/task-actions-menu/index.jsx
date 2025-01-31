@@ -4,29 +4,29 @@ import "./index.css";
 const TaskActionsMenu = ({
   show,
   setShow,
-  showDoneTasks,
-  setShowDoneTasks,
-  setSelectedPriority,
   tasks,
   isSearch,
   setIsSearch,
   setResult,
+  filters,
+  setFilters,
 }) => {
   const searchRef = useRef(null);
   const [searchInput, setSearchInput] = useState("");
+
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchInput === "") return;
     setIsSearch(true);
+    // to reset filters
+    setFilters({ activeBar: "all" });
     // Here we filter the tasks based on the search input
     // 1- We convert the search input and the task title and description to lowercase
     // 2- We filter the tasks based on the search input
     // 3- We update the result state with the filtered tasks
     setResult(
-      tasks.filter(
-        (task) =>
-          task.title.toLowerCase().includes(searchInput.toLowerCase()) ||
-          task.description.toLowerCase().includes(searchInput.toLowerCase())
+      tasks.filter((task) =>
+        task.title.toLowerCase().includes(searchInput.toLowerCase())
       )
     );
   };
@@ -66,51 +66,18 @@ const TaskActionsMenu = ({
       </div>
       {/* Tasks buttons All high medium low done */}
       <div className="task-buttons-row">
-        <button
-          className="done-button"
-          onClick={() => {
-            setShowDoneTasks(!showDoneTasks);
-            setShow(false);
-            setSelectedPriority(null);
-          }}
-        >
+        <button onClick={() => setFilters({ ...filters, activeBar: "all" })}>
           All Tasks
         </button>
-       
-        <button
-          className="done-button"
-          onClick={() => {
-            setShowDoneTasks(false);
-            setSelectedPriority("High");
-          }}
-        >
-          High
-        </button>
-        <button
-          className="done-button"
-          onClick={() => {
-            setShowDoneTasks(false);
-            setSelectedPriority("Medium");
-          }}
-        >
-          Medium
-        </button>
 
         <button
-          className="done-button"
-          onClick={() => {
-            setShowDoneTasks(false);
-            setSelectedPriority("Low");
-          }}
+          onClick={() => setFilters({ ...filters, activeBar: "uncompleted" })}
         >
-          Low
+          Pending
         </button>
 
-        <button
-          className="done-button"
-          onClick={() => setShowDoneTasks(!showDoneTasks)}
-        >
-          Done
+        <button onClick={() => setFilters({ ...filters, activeBar: "done" })}>
+          Completed
         </button>
       </div>
     </div>

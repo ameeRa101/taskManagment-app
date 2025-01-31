@@ -18,3 +18,11 @@
   color: #05675f;
   text-decoration: underline;
 }
+
+.profile-container button {
+  background-color: #05675f;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
